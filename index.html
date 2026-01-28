@@ -7,10 +7,57 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0b1220" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="style.css?v=1.0.0" />
+  <link rel="stylesheet" href="style.css?v=1.0.1" />
 </head>
 <body>
-  <h1>Boîte à outils Maintenance</h1>
-  <p>Archive régénérée. Copie complète prête à être déployée.</p>
+  <header class="top">
+    <div class="brand">
+      <div class="logo">🧰</div>
+      <div class="titles">
+        <h1 id="pageTitle">Boîte à outils</h1>
+        <div class="subtitle" id="subtitle">Élec • Méca • Calculs • Dépannage • Mémo</div>
+      </div>
+    </div>
+    <div class="topActions">
+      <button id="btnSearch" class="iconBtn" title="Rechercher">🔎</button>
+      <button id="btnInstall" class="iconBtn" title="Installer" hidden>⬇️</button>
+      <button id="btnSettings" class="iconBtn" title="Réglages">⚙︎</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="searchBar hidden" id="searchBar">
+      <input id="searchInput" type="search" placeholder="Rechercher (outil, règle, note…)" />
+      <button id="searchClose" class="iconBtn" type="button">✕</button>
+    </section>
+
+    <section id="view"></section>
+  </main>
+
+  <nav class="bottomNav">
+    <button data-route="home">Accueil</button>
+    <button data-route="elec">Électricité</button>
+    <button data-route="meca">Mécanique</button>
+    <button data-route="calc">Calculs</button>
+    <button data-route="diag">Dépannage</button>
+    <button data-route="memo">Mémo</button>
+    <button data-route="fav">⭐</button>
+  </nav>
+
+  <dialog id="modal">
+    <form method="dialog" class="modalForm">
+      <h3 id="modalTitle">—</h3>
+      <div id="modalBody"></div>
+      <menu class="modalActions">
+        <button value="cancel">Annuler</button>
+        <button id="modalOk" class="primary" value="default">OK</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js?v=1.0.1"></script>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
+  </script>
 </body>
 </html>
