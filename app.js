@@ -1,1 +1,0 @@
-console.log('Maintenance Toolbox PWA - regenerated');
