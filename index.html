@@ -2,62 +2,35 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boîte à outils Maintenance</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f14" />
+  <title>Boîte à outils EM</title>
+
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="style.css?v=1.0.1" />
+  <link rel="stylesheet" href="app.css" />
 </head>
 <body>
-  <header class="top">
+  <header class="topbar">
     <div class="brand">
-      <div class="logo">🧰</div>
-      <div class="titles">
-        <h1 id="pageTitle">Boîte à outils</h1>
-        <div class="subtitle" id="subtitle">Élec • Méca • Calculs • Dépannage • Mémo</div>
+      <div class="brand__dot"></div>
+      <div>
+        <div class="brand__title">Boîte à outils</div>
+        <div class="brand__subtitle">Électromécanicien • Terrain</div>
       </div>
     </div>
-    <div class="topActions">
-      <button id="btnSearch" class="iconBtn" title="Rechercher">🔎</button>
-      <button id="btnInstall" class="iconBtn" title="Installer" hidden>⬇️</button>
-      <button id="btnSettings" class="iconBtn" title="Réglages">⚙︎</button>
-    </div>
+
+    <button class="iconbtn" id="btnHome" title="Accueil" aria-label="Accueil">⌂</button>
   </header>
 
-  <main class="wrap">
-    <section class="searchBar hidden" id="searchBar">
-      <input id="searchInput" type="search" placeholder="Rechercher (outil, règle, note…)" />
-      <button id="searchClose" class="iconBtn" type="button">✕</button>
-    </section>
+  <main id="app" class="container" role="main"></main>
 
-    <section id="view"></section>
-  </main>
-
-  <nav class="bottomNav">
-    <button data-route="home">Accueil</button>
-    <button data-route="elec">Électricité</button>
-    <button data-route="meca">Mécanique</button>
-    <button data-route="calc">Calculs</button>
-    <button data-route="diag">Dépannage</button>
-    <button data-route="memo">Mémo</button>
-    <button data-route="fav">⭐</button>
+  <nav class="bottombar" aria-label="Navigation">
+    <a class="tab" href="#/">🏠<span>Accueil</span></a>
+    <a class="tab" href="#/favoris">⭐<span>Favoris</span></a>
+    <a class="tab" href="#/search">🔎<span>Recherche</span></a>
   </nav>
 
-  <dialog id="modal">
-    <form method="dialog" class="modalForm">
-      <h3 id="modalTitle">—</h3>
-      <div id="modalBody"></div>
-      <menu class="modalActions">
-        <button value="cancel">Annuler</button>
-        <button id="modalOk" class="primary" value="default">OK</button>
-      </menu>
-    </form>
-  </dialog>
-
-  <script src="app.js?v=1.0.1"></script>
-  <script>
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
