@@ -13,6 +13,59 @@ const fav = {
   }
 };
 
+// ========== Réglages ==========
+const SETTINGS_KEY = "em_settings_v1";
+const settings = {
+  defaults: {
+    uiSize: "normal",   // normal | large | xxl
+    fontSize: "normal", // normal | large
+    decimal: ",",       // , | .
+    sunMode: false
+  },
+  get() {
+    try { return { ...this.defaults, ...JSON.parse(localStorage.getItem(SETTINGS_KEY)) }; }
+    catch { return { ...this.defaults }; }
+  },
+  save(cfg) {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(cfg));
+    applySettings(cfg);
+  }
+};
+
+function applySettings(cfg = settings.get()) {
+  const root = document.documentElement;
+
+  // Taille interface (zones tactiles)
+  if (cfg.uiSize === "large") root.style.setProperty("--tap", "64px");
+  else if (cfg.uiSize === "xxl") root.style.setProperty("--tap", "72px");
+  else root.style.setProperty("--tap", "56px");
+
+  // Taille texte
+  if (cfg.fontSize === "large") root.style.fontSize = "18px";
+  else root.style.fontSize = "16px";
+
+  // Mode plein soleil (contraste)
+  if (cfg.sunMode) {
+    root.style.setProperty("--bg", "#000");
+    root.style.setProperty("--card", "#0a0a0a");
+    root.style.setProperty("--text", "#ffffff");
+  } else {
+    root.style.removeProperty("--bg");
+    root.style.removeProperty("--card");
+    root.style.removeProperty("--text");
+  }
+}
+
+// Aide pour convertir une saisie selon le séparateur décimal
+function parseNumber(value) {
+  const cfg = settings.get();
+  const v = String(value ?? "").trim();
+  if (!v) return NaN;
+  // si l'utilisateur tape avec l'autre séparateur, on accepte quand même
+  const normalized = v.replace(",", "."); 
+  return Number(normalized);
+}
+
 // ========== Données de base (tu pourras les étendre) ==========
 const data = {
   outils: [
@@ -144,17 +197,17 @@ function pageElecTri(){
       <div class="spacer"></div>
 
       <label class="p">Tension U (V)</label>
-      <input class="input" id="u" type="number" inputmode="decimal" placeholder="Ex : 400" value="400">
+      <input class="input" id="u" type="text" inputmode="decimal" placeholder="Ex : 400" value="400">
 
       <div class="spacer"></div>
 
       <label class="p">Courant I (A)</label>
-      <input class="input" id="i" type="number" inputmode="decimal" placeholder="Ex : 12">
+      <input class="input" id="i" type="text" inputmode="decimal" placeholder="Ex : 12">
 
       <div class="spacer"></div>
 
       <label class="p">cosφ</label>
-      <input class="input" id="cos" type="number" inputmode="decimal" step="0.01" placeholder="Ex : 0,85" value="0.85">
+      <input class="input" id="cos" type="text" inputmode="decimal" placeholder="Ex : 0,85" value="0.85">
 
       <div class="spacer"></div>
 
@@ -244,12 +297,61 @@ function pageDocs(){
   return html`
     <div class="h1">📚 Dépannage</div>
     <div class="card">
-      <div class="hC2">
-        <div class="h2">Bientôt</div>
-        <div class="p">Objectif : créer tes fiches “panne → symptômes → causes → tests → solution” avec recherche et favoris.</div>
-        <div class="spacer"></div>
-        <div class="badge">On ajoutera un stockage local (IndexedDB)</div>
-      </div>
+      <div class="h2">Bientôt</div>
+      <div class="p">Objectif : créer tes fiches “panne → symptômes → causes → tests → solution” avec recherche et favoris.</div>
+      <div class="spacer"></div>
+      <div class="badge">On ajoutera un stockage local (IndexedDB)</div>
+    </div>
+  `;
+}
+
+function pageSettings(){
+  const cfg = settings.get();
+  return html`
+    <div class="h1">⚙️ Réglages</div>
+
+    <div class="card">
+      <div class="h2">Interface terrain</div>
+
+      <label class="p">Taille des boutons</label>
+      <select class="select" id="uiSize">
+        <option value="normal" ${cfg.uiSize==="normal"?"selected":""}>Normal</option>
+        <option value="large" ${cfg.uiSize==="large"?"selected":""}>Grand</option>
+        <option value="xxl" ${cfg.uiSize==="xxl"?"selected":""}>XXL (gants)</option>
+      </select>
+
+      <div class="spacer"></div>
+
+      <label class="p">Taille du texte</label>
+      <select class="select" id="fontSize">
+        <option value="normal" ${cfg.fontSize==="normal"?"selected":""}>Normal</option>
+        <option value="large" ${cfg.fontSize==="large"?"selected":""}>Grand</option>
+      </select>
+
+      <div class="spacer"></div>
+
+      <label class="p">Séparateur décimal</label>
+      <select class="select" id="decimal">
+        <option value="," ${cfg.decimal===","?"selected":""}>Virgule (FR)</option>
+        <option value="." ${cfg.decimal==="."?"selected":""}>Point</option>
+      </select>
+
+      <div class="spacer"></div>
+
+      <label class="row">
+        <input type="checkbox" id="sunMode" ${cfg.sunMode?"checked":""} />
+        <span class="p">☀️ Mode plein soleil</span>
+      </label>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="card">
+      <div class="h2">Sauvegarde</div>
+      <button class="btn btn--primary" id="exportCfg">⬇️ Exporter réglages + favoris</button>
+      <div class="spacer"></div>
+      <input type="file" id="importCfg" accept="application/json" class="input" />
+      <div class="p">Import : un fichier JSON exporté depuis l’app.</div>
     </div>
   `;
 }
@@ -287,12 +389,61 @@ function pageSearch(){
   `;
 }
 
+// ========== Bindings ==========
+function bindSettings(){
+  const cfg = settings.get();
+
+  ["uiSize","fontSize","decimal"].forEach(id => {
+    document.getElementById(id).addEventListener("change", e => {
+      cfg[id] = e.target.value;
+      settings.save(cfg);
+    });
+  });
+
+  document.getElementById("sunMode").addEventListener("change", e => {
+    cfg.sunMode = e.target.checked;
+    settings.save(cfg);
+  });
+
+  document.getElementById("exportCfg").addEventListener("click", () => {
+    const payload = {
+      settings: settings.get(),
+      favoris: fav.getAll()
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "em-sauvegarde.json";
+    a.click();
+  });
+
+  document.getElementById("importCfg").addEventListener("change", e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const imported = JSON.parse(reader.result);
+
+        if (imported.settings) settings.save({ ...settings.defaults, ...imported.settings });
+        if (Array.isArray(imported.favoris)) localStorage.setItem(FAV_KEY, JSON.stringify(imported.favoris));
+
+        render();
+      } catch {
+        alert("Fichier invalide");
+      }
+    };
+    reader.readAsText(file);
+  });
+}
+
 // ========== Router ==========
 function render(){
   const route = (location.hash || "#/").replace("#", "");
   setActiveTab();
 
   document.getElementById("btnHome").onclick = () => (location.hash = "#/");
+  document.getElementById("btnSettings").onclick = () => (location.hash = "#/settings");
 
   let view = "";
   if (route === "/") view = pageHome();
@@ -302,6 +453,7 @@ function render(){
   else if (route === "/meca/pasdevis") view = pageMecaPasDeVis();
   else if (route === "/auto") view = pageAuto();
   else if (route === "/docs") view = pageDocs();
+  else if (route === "/settings") view = pageSettings();
   else if (route === "/favoris") view = pageFavoris();
   else if (route === "/search") view = pageSearch();
   else view = html`<div class="h1">Introuvable</div><div class="card"><div class="p">Cette page n'existe pas.</div></div>`;
@@ -312,6 +464,7 @@ function render(){
 
   if (route === "/elec/tri") bindElecTri();
   if (route === "/meca/pasdevis") bindPasDeVis();
+  if (route === "/settings") bindSettings();
   if (route === "/favoris") {
     const btn = document.getElementById("clearFav");
     btn?.addEventListener("click", () => { localStorage.removeItem(FAV_KEY); render(); });
@@ -327,10 +480,10 @@ function bindElecTri(){
   const skva = document.getElementById("skva");
 
   function calc(){
-    const U = Number(u.value);
-    const I = Number(i.value);
-    const C = Number(cos.value);
-    if (!U || !I || !C) {
+    const U = parseNumber(u.value);
+    const I = parseNumber(i.value);
+    const C = parseNumber(cos.value);
+    if (!Number.isFinite(U) || !Number.isFinite(I) || !Number.isFinite(C) || U<=0 || I<=0 || C<=0) {
       pkw.textContent = "— kW";
       skva.textContent = "— kVA";
       return;
@@ -343,9 +496,9 @@ function bindElecTri(){
 
   document.getElementById("calc").addEventListener("click", calc);
   document.getElementById("reset").addEventListener("click", () => {
-    u.value = 400;
+    u.value = "400";
     i.value = "";
-    cos.value = 0.85;
+    cos.value = "0.85";
     calc();
   });
 
@@ -405,5 +558,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+applySettings();
 window.addEventListener("hashchange", render);
 render();
