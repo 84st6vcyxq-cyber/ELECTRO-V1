@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>Le Mur — Galerie & Chat du groupe</title>
+<meta name="description" content="Galerie photo partagée et chat en direct pour la bande." />
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#C8945C" />
+
+<!-- iOS installable-app meta -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Le Mur" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+<link rel="icon" href="icons/favicon.png" />
+
+<!-- Fonts: handwritten display + clean body + mono utility -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== ÉCRAN DE CONNEXION ===== -->
+<section id="login-screen" class="screen login-screen">
+  <div class="corkboard-bg" aria-hidden="true"></div>
+  <div class="login-card paper-card">
+    <span class="pin pin--red" aria-hidden="true"></span>
+    <h1 class="brand-title">Le Mur</h1>
+    <p class="brand-sub">La galerie et le chat de la bande, punaisés au même endroit.</p>
+
+    <form id="login-form" autocomplete="off">
+      <label for="displayName">Ton prénom / pseudo</label>
+      <input id="displayName" name="displayName" type="text" maxlength="24" placeholder="ex. Léa" required />
+      <button type="submit" id="login-btn" class="btn btn--primary">
+        <span class="btn-label">J'épingle mon nom</span>
+        <span class="btn-spinner" hidden></span>
+      </button>
+      <p id="login-error" class="form-error" role="alert" hidden></p>
+    </form>
+    <p class="login-hint">Pas de mot de passe : ton prénom suffit pour rejoindre le mur.</p>
+  </div>
+</section>
+
+<!-- ===== APP ===== -->
+<div id="app" class="screen app-shell" hidden>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-pin" aria-hidden="true"></span>
+      <h1 class="topbar-title">Le Mur</h1>
+    </div>
+    <button id="whoami-btn" class="whoami" type="button" title="Changer de prénom">
+      <span id="whoami-initial" class="whoami-badge">?</span>
+      <span id="whoami-name" class="whoami-name">…</span>
+    </button>
+  </header>
+
+  <main class="views">
+    <!-- GALERIE -->
+    <section id="view-gallery" class="view view--gallery" aria-labelledby="tab-gallery">
+      <div id="gallery-empty" class="empty-state" hidden>
+        <p class="empty-title">Le mur est vide</p>
+        <p class="empty-sub">Sois le·la premier·ère à punaiser une photo.</p>
+      </div>
+      <div id="gallery-grid" class="corkboard" aria-live="polite"></div>
+    </section>
+
+    <!-- CHAT -->
+    <section id="view-chat" class="view view--chat" aria-labelledby="tab-chat" hidden>
+      <div id="chat-empty" class="empty-state" hidden>
+        <p class="empty-title">Aucun message</p>
+        <p class="empty-sub">Écris le premier mot du groupe.</p>
+      </div>
+      <div id="chat-thread" class="chat-thread" aria-live="polite"></div>
+      <form id="chat-form" class="chat-composer" autocomplete="off">
+        <input id="chat-input" type="text" maxlength="500" placeholder="Écrire un message…" required />
+        <button type="submit" class="btn btn--send" aria-label="Envoyer">➤</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Bouton flottant : ajouter une photo -->
+  <button id="add-photo-btn" class="fab" type="button" title="Ajouter une photo">
+    <span class="fab-pin" aria-hidden="true"></span>
+    <span class="fab-plus">+</span>
+  </button>
+  <input id="photo-input" type="file" accept="image/*" capture="environment" hidden />
+
+  <!-- Barre d'onglets -->
+  <nav class="tabbar" role="tablist">
+    <button id="tab-gallery" class="tab is-active" role="tab" aria-selected="true" data-view="gallery">
+      <span class="tab-icon">🖼️</span><span>Mur photo</span>
+    </button>
+    <button id="tab-chat" class="tab" role="tab" aria-selected="false" data-view="chat">
+      <span class="tab-icon">💬</span><span>Chat</span>
+    </button>
+  </nav>
+</div>
+
+<!-- Bandeau d'upload -->
+<div id="upload-toast" class="upload-toast" hidden>
+  <div class="upload-toast-bar"><div id="upload-toast-fill" class="upload-toast-fill"></div></div>
+  <span id="upload-toast-label">Envoi de la photo…</span>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" hidden>
+  <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Fermer">✕</button>
+  <figure class="lightbox-figure">
+    <img id="lightbox-img" alt="" />
+    <figcaption>
+      <span id="lightbox-author" class="lightbox-author"></span>
+      <span id="lightbox-date" class="lightbox-date"></span>
+    </figcaption>
+  </figure>
+  <button id="lightbox-delete" class="btn btn--danger" type="button" hidden>Retirer la photo</button>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
