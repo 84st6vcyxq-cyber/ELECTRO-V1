@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1c6fdc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Journal">
+  <title>Journal de bord</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/favicon.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ===== Journal ===== -->
+  <section id="view-journal" class="view active" data-type="journal">
+    <header class="topbar">
+      <h1>Journal</h1>
+      <button class="icon-btn sync-btn" title="Synchroniser" aria-label="Synchroniser">⟳</button>
+    </header>
+    <div class="search"><input type="search" placeholder="Rechercher dans le journal" data-search="journal"></div>
+    <div class="list" id="list-journal"></div>
+    <button class="fab" data-new="journal" aria-label="Nouvelle entrée">＋</button>
+  </section>
+
+  <!-- ===== Carte ===== -->
+  <section id="view-map" class="view" data-type="place">
+    <header class="topbar">
+      <h1>Carte</h1>
+      <button class="icon-btn" id="btn-locate" title="Ma position" aria-label="Ma position">◎</button>
+      <button class="icon-btn" id="btn-places" title="Liste des lieux" aria-label="Liste des lieux">☰</button>
+    </header>
+    <form class="search" id="geo-search">
+      <input type="search" placeholder="Chercher une ville, une adresse…" id="geo-query">
+    </form>
+    <div id="map"></div>
+    <p class="map-hint">Appuie longuement (ou clique) sur la carte pour ajouter un lieu.</p>
+  </section>
+
+  <!-- ===== Notes ===== -->
+  <section id="view-notes" class="view" data-type="note">
+    <header class="topbar">
+      <h1>Notes</h1>
+      <button class="icon-btn sync-btn" title="Synchroniser" aria-label="Synchroniser">⟳</button>
+    </header>
+    <div class="search"><input type="search" placeholder="Rechercher dans les notes" data-search="note"></div>
+    <div class="list" id="list-note"></div>
+    <button class="fab" data-new="note" aria-label="Nouvelle note">＋</button>
+  </section>
+
+  <!-- ===== Réglages ===== -->
+  <section id="view-settings" class="view">
+    <header class="topbar"><h1>Réglages</h1></header>
+    <div class="scroll">
+      <h2 class="group-title">Stockage GitHub</h2>
+      <form class="group" id="settings-form" autocomplete="off">
+        <label>Propriétaire<input name="owner" placeholder="ton-pseudo-github" autocapitalize="off" spellcheck="false"></label>
+        <label>Dépôt<input name="repo" placeholder="journal-data" autocapitalize="off" spellcheck="false"></label>
+        <label>Branche<input name="branch" placeholder="main" autocapitalize="off" spellcheck="false"></label>
+        <label>Dossier<input name="folder" placeholder="data" autocapitalize="off" spellcheck="false"></label>
+        <label>Jeton d'accès<input name="token" type="password" placeholder="github_pat_…" autocapitalize="off" spellcheck="false"></label>
+        <div class="row-buttons">
+          <button type="submit" class="btn primary">Enregistrer</button>
+          <button type="button" class="btn" id="btn-test">Tester</button>
+          <button type="button" class="btn" id="btn-sync-now">Synchroniser</button>
+        </div>
+        <p class="status" id="sync-status">Non configuré.</p>
+      </form>
+      <p class="help">
+        Utilise un dépôt <strong>privé</strong> dédié à tes données (ex. <code>journal-data</code>).
+        Crée un jeton « fine-grained » sur GitHub (Settings → Developer settings → Personal access tokens),
+        limité à ce seul dépôt avec la permission <em>Contents : Read and write</em>.
+        Le jeton reste uniquement sur cet appareil.
+      </p>
+
+      <h2 class="group-title">Sauvegarde locale</h2>
+      <div class="group">
+        <div class="row-buttons">
+          <button class="btn" id="btn-export">Exporter (JSON)</button>
+          <label class="btn">Importer<input type="file" accept="application/json" id="import-file" hidden></label>
+        </div>
+        <p class="help">L'export contient le texte et les emplacements, pas les photos.</p>
+      </div>
+
+      <h2 class="group-title">Installer sur iPhone</h2>
+      <p class="help">Dans Safari : bouton Partager → « Sur l'écran d'accueil ».</p>
+    </div>
+  </section>
+
+  <!-- ===== Barre d'onglets ===== -->
+  <nav class="tabbar">
+    <button data-view="journal" class="active"><span>📔</span>Journal</button>
+    <button data-view="map"><span>🗺️</span>Carte</button>
+    <button data-view="notes"><span>📝</span>Notes</button>
+    <button data-view="settings"><span>⚙️</span>Réglages</button>
+  </nav>
+
+  <!-- ===== Éditeur ===== -->
+  <div class="sheet" id="editor" hidden>
+    <header class="sheet-bar">
+      <button class="link-btn" id="ed-cancel">Annuler</button>
+      <strong id="ed-heading">Entrée</strong>
+      <button class="link-btn bold" id="ed-save">Enregistrer</button>
+    </header>
+    <div class="scroll">
+      <input class="title-input" id="ed-title" placeholder="Titre">
+      <div class="meta-row" id="ed-date-row">
+        <label>Date <input type="datetime-local" id="ed-date"></label>
+        <label id="ed-mood-wrap">Humeur
+          <select id="ed-mood">
+            <option value="">—</option><option>😄</option><option>🙂</option><option>😐</option><option>😕</option><option>😢</option><option>😡</option><option>🤩</option><option>😴</option>
+          </select>
+        </label>
+      </div>
+      <textarea id="ed-body" placeholder="Écris ici…"></textarea>
+      <input id="ed-tags" placeholder="Étiquettes (séparées par des virgules)">
+
+      <div class="loc-row">
+        <span id="ed-loc-label">Aucun emplacement</span>
+        <button class="btn small" id="ed-loc-here">📍 Ma position</button>
+        <button class="btn small" id="ed-loc-clear">Retirer</button>
+      </div>
+
+      <div class="photos" id="ed-photos"></div>
+      <label class="btn">📷 Ajouter des photos<input type="file" accept="image/*" multiple id="ed-photo-input" hidden></label>
+
+      <button class="btn danger" id="ed-delete">Supprimer</button>
+    </div>
+  </div>
+
+  <!-- ===== Liste des lieux ===== -->
+  <div class="sheet" id="places-sheet" hidden>
+    <header class="sheet-bar">
+      <span></span><strong>Lieux</strong>
+      <button class="link-btn bold" id="places-close">OK</button>
+    </header>
+    <div class="list scroll" id="list-place"></div>
+  </div>
+
+  <!-- ===== Visionneuse photo ===== -->
+  <div class="viewer" id="viewer" hidden><img alt=""></div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
