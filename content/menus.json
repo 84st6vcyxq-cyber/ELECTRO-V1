@@ -1,0 +1,24 @@
+{
+  "main-menu": {
+    "title": "Menu principal",
+    "items": [
+      { "title": "Accueil", "type": "FRONTPAGE", "url": "/" },
+      { "title": "Le tapis de fouille", "type": "PRODUCT", "ref": "product:tapis-de-fouille-chien" },
+      { "title": "À propos", "type": "PAGE", "ref": "page:a-propos" },
+      { "title": "FAQ", "type": "PAGE", "ref": "page:faq" },
+      { "title": "Contact", "type": "PAGE", "ref": "page:contact" }
+    ]
+  },
+  "footer": {
+    "title": "Pied de page",
+    "items": [
+      { "title": "Livraison & retours", "type": "PAGE", "ref": "page:livraison-retours" },
+      { "title": "Se rétracter du contrat ici", "type": "PAGE", "ref": "page:retractation" },
+      { "title": "CGV", "type": "PAGE", "ref": "page:cgv" },
+      { "title": "Mentions légales", "type": "PAGE", "ref": "page:mentions-legales" },
+      { "title": "Politique de confidentialité", "type": "PAGE", "ref": "page:politique-de-confidentialite" },
+      { "title": "FAQ", "type": "PAGE", "ref": "page:faq" },
+      { "title": "Contact", "type": "PAGE", "ref": "page:contact" }
+    ]
+  }
+}

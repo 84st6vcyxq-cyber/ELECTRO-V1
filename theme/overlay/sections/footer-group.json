@@ -1,0 +1,46 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "marque": {
+          "type": "text",
+          "settings": {
+            "heading": "Flairou",
+            "subtext": "<p>Le flair, c’est leur super-pouvoir. Des jeux de flair simples pour occuper votre chien à la maison.</p>"
+          }
+        },
+        "infos": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Informations",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "marque",
+        "infos"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "newsletter_enable": true,
+        "newsletter_heading": "Des idées de jeux de flair, une fois par mois",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

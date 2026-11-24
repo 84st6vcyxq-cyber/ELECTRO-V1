@@ -1,0 +1,367 @@
+{
+  "sections": {
+    "hero": {
+      "type": "image-banner",
+      "blocks": {
+        "b1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le flair, c’est leur super-pouvoir.",
+            "heading_size": "h0"
+          }
+        },
+        "b2": {
+          "type": "text",
+          "settings": {
+            "text": "Cachez ses croquettes dans le tapis de fouille Flairou : il les cherche au flair, une à une. Le repas dure plus longtemps, et votre chien a une vraie activité.",
+            "text_style": "body"
+          }
+        },
+        "b3": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Découvrir le tapis",
+            "button_link_1": "shopify://products/tapis-de-fouille-chien",
+            "button_style_secondary_1": false,
+            "button_label_2": "Questions fréquentes",
+            "button_link_2": "shopify://pages/faq",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/flairou-hero.png",
+        "image_overlay_opacity": 30,
+        "image_height": "large",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": true,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "benefices": {
+      "type": "multicolumn",
+      "blocks": {
+        "b1": {
+          "type": "column",
+          "settings": {
+            "title": "Un repas qui dure",
+            "text": "<p>Chaque croquette se cherche au flair : impossible de tout avaler en quelques secondes comme à la gamelle.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b2": {
+          "type": "column",
+          "settings": {
+            "title": "Une vraie activité",
+            "text": "<p>Un jeu de recherche à proposer à la maison, les jours de pluie ou après la promenade.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b3": {
+          "type": "column",
+          "settings": {
+            "title": "Simple et lavable",
+            "text": "<p>Pliable, base antidérapante, lavable en machine à 30 °C dans un filet.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "title": "Pourquoi un tapis de fouille ?",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "comment_ca_marche": {
+      "type": "multicolumn",
+      "blocks": {
+        "b1": {
+          "type": "column",
+          "settings": {
+            "title": "1. Cachez",
+            "text": "<p>Dispersez croquettes ou friandises dans les franges. Au début, laissez-les visibles.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b2": {
+          "type": "column",
+          "settings": {
+            "title": "2. Posez",
+            "text": "<p>Placez le tapis à plat devant votre chien et restez à côté de lui.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b3": {
+          "type": "column",
+          "settings": {
+            "title": "3. Laissez-le chercher",
+            "text": "<p>Il explore avec son nez. À la fin, secouez le tapis et rangez-le hors de sa portée.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "title": "Comment ça marche",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "produit": {
+      "type": "featured-product",
+      "blocks": {
+        "b1": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "b2": {
+          "type": "price",
+          "settings": {}
+        },
+        "b3": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "b4": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "b5": {
+          "type": "text",
+          "settings": {
+            "text": "À utiliser sous surveillance. Lavable en machine à 30 °C.",
+            "text_style": "subtitle"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ],
+      "settings": {
+        "product": "tapis-de-fouille-chien",
+        "color_scheme": "scheme-1",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "b1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Mon chien peut-il utiliser le tapis sans surveillance ?",
+            "icon": "question_mark",
+            "row_content": "<p>Non. Le tapis de fouille est un jeu à utiliser sous votre surveillance. S'il commence à mâchouiller ou à arracher les franges, retirez-le et rangez-le après chaque séance.</p>",
+            "page": ""
+          }
+        },
+        "b2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quelle taille choisir ?",
+            "icon": "question_mark",
+            "row_content": "<p>Le modèle Classique (Ø 45 cm) convient aux petits et moyens chiens. Le Grand (70 × 50 cm) offre plus de surface de recherche : il est plus adapté aux chiens de taille moyenne à grande, ou si vous voulez y mettre une ration complète.</p>",
+            "page": ""
+          }
+        },
+        "b3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Puis-je y servir tout le repas ?",
+            "icon": "question_mark",
+            "row_content": "<p>Oui, avec des croquettes sèches. Évitez la pâtée et les aliments humides, qui salissent les franges. Pour un premier essai, commencez par quelques croquettes bien visibles, puis cachez-les plus profondément.</p>",
+            "page": ""
+          }
+        },
+        "b4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Comment le laver ?",
+            "icon": "question_mark",
+            "row_content": "<p>Secouez-le pour retirer les miettes, puis lavez-le en machine à 30 °C dans un filet, sans adoucissant. Laissez-le sécher à plat à l'air libre, sans sèche-linge.</p>",
+            "page": ""
+          }
+        },
+        "b5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Quels sont les délais de livraison ?",
+            "icon": "question_mark",
+            "row_content": "<p>Les commandes sont préparées sous 1 à 3 jours ouvrés, puis livrées en France métropolitaine en 7 à 12 jours ouvrés en moyenne. Le détail figure sur notre page Livraison & retours.</p>",
+            "page": ""
+          }
+        },
+        "b6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Puis-je le retourner s'il ne convient pas ?",
+            "icon": "question_mark",
+            "row_content": "<p>Oui. Vous disposez de 14 jours après réception pour exercer votre droit de rétractation, sans avoir à vous justifier. Le produit doit nous être retourné complet. La procédure est décrite sur la page Livraison & retours.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "Questions fréquentes",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "reassurance": {
+      "type": "multicolumn",
+      "blocks": {
+        "b1": {
+          "type": "column",
+          "settings": {
+            "title": "Livraison suivie",
+            "text": "<p>Expédition sous 1 à 3 jours ouvrés, livraison offerte dès 50 €.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b2": {
+          "type": "column",
+          "settings": {
+            "title": "14 jours pour changer d’avis",
+            "text": "<p>Droit de rétractation de 14 jours après réception.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b3": {
+          "type": "column",
+          "settings": {
+            "title": "Garantie légale de 2 ans",
+            "text": "<p>Produit non conforme ? Réparation, remplacement ou remboursement.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b4": {
+          "type": "column",
+          "settings": {
+            "title": "Paiement sécurisé",
+            "text": "<p>Paiement traité par un prestataire de paiement sécurisé. Nous ne voyons jamais vos données bancaires complètes.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "title": "Achetez l’esprit tranquille",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-3",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "benefices",
+    "comment_ca_marche",
+    "produit",
+    "faq",
+    "reassurance"
+  ]
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img"><title>Flairou</title><g transform="translate(2.000000000000007 2.000000000000007) scale(1.16)">
+  <circle cx="50" cy="50" r="50" fill="#2F5D50"/>
+  <path d="M26 46 C26 36 36 33 50 33 C64 33 74 36 74 46 C74 60 60 70 50 70 C40 70 26 60 26 46 Z" fill="#FBF6EC"/>
+  <ellipse cx="41" cy="50" rx="5.2" ry="7" transform="rotate(-22 41 50)" fill="#2F5D50"/>
+  <ellipse cx="59" cy="50" rx="5.2" ry="7" transform="rotate(22 59 50)" fill="#2F5D50"/>
+  <g fill="none" stroke="#E0A13B" stroke-width="4.5" stroke-linecap="round">
+    <path d="M36 24 Q38 18 35 12"/><path d="M50 22 Q52 15 49 9"/><path d="M64 24 Q66 18 63 12"/>
+  </g>
+</g></svg>

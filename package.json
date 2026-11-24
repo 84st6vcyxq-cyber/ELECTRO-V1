@@ -1,0 +1,20 @@
+{
+  "name": "flairou-shopify",
+  "private": true,
+  "description": "Boutique Flairou : contenus, thème Dawn personnalisé et scripts de déploiement Shopify (Admin API GraphQL)",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build:theme": "./scripts/build-theme.sh && python3 theme/validate_templates.py theme/build",
+    "verify:local": "node scripts/verify.mjs --local",
+    "deploy:dry": "node scripts/deploy.mjs --dry-run",
+    "deploy": "node scripts/deploy.mjs",
+    "preview:mobile": "node scripts/preview-mobile.mjs",
+    "theme:publish": "node scripts/deploy.mjs --only=theme-publish",
+    "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3",
+    "playwright": "^1"
+  }
+}
